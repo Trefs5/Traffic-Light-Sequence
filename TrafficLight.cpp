@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "TrafficLight.h"
 
-//Sets the pins
+//Sets the pins 
 TrafficLight::TrafficLight(int rpin, int ypin, int gpin){
   pinMode(rpin, OUTPUT);
   _rpin= rpin;
@@ -15,19 +15,25 @@ TrafficLight::TrafficLight(int rpin, int ypin, int gpin){
 }
 
 void TrafficLight::LightSequence(int lightTime){
-  digitalWrite(_rpin, HIGH);
-  delay(lightTime);
-  digitalWrite(_rpin, LOW);
-  delay(lightTime);
-
   digitalWrite(_ypin, HIGH);
   delay(lightTime);
+  digitalWrite(_rpin, LOW);
   digitalWrite(_ypin, LOW);
-  delay(lightTime);
 
   digitalWrite(_gpin, HIGH);
-  delay(lightTime);
+  delay(lightTime * 4);
   digitalWrite(_gpin, LOW);
-  delay(lightTime);
+
+
+  digitalWrite(_ypin, HIGH);
+  delay(lightTime  * 3);
+  
+  digitalWrite(_ypin, LOW);
+  digitalWrite(_rpin, HIGH);
+}
+
+void TrafficLight::OnStart(){
+  //switches the red light on for all traffic lights to prevent traffic lights with no lights on during the first cycle.
+  digitalWrite(_rpin, HIGH);
 
 }

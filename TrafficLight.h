@@ -8,6 +8,8 @@ class TrafficLight{
     TrafficLight(int r_pin, int y_pin, int g_pin);
 
     void LightSequence(int lightTime);
+    void OnStart();
+
 
   private:
     int _rpin;
